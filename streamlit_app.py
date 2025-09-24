@@ -1,6 +1,19 @@
 import streamlit as st
 from PIL import Image, ImageOps, ImageDraw
 import io, random, heapq, time
+import hashlib  #for implementing fingerprint for uploaded file
+from io import BytesIO # for file handling
+
+st.markdown(
+   """
+   <style>
+   .stApp {
+       background-color: #ADD8E6; /* Example: lavender */
+   }
+   </style>
+   """,
+   unsafe_allow_html=True
+)
 
 # Puzzle logic
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
@@ -27,8 +40,8 @@ def neighbors(state):
 
 def manhattan(s, goal=GOAL):
     dist = 0
-    # s is tuple length 9; tiles 1..8
     for idx, tile in enumerate(s):
+        # s is tuple length 9; tiles 1..8
         if tile == 0: continue
         goal_idx = goal.index(tile)
         r1,c1 = index_to_rc(idx)
@@ -59,7 +72,7 @@ def astar(start, goal=GOAL, max_nodes=200000):
         _, _, current = heapq.heappop(open_heap)
         nodes += 1
         if nodes > max_nodes:
-            return None  # fail gracefully for very large search
+            return None # fail gracefully for very large search
         if current == goal:
             # reconstruct
             path = [current]
@@ -82,25 +95,28 @@ def astar(start, goal=GOAL, max_nodes=200000):
 
 # Initialize session_state
 if "state" not in st.session_state:
-    st.session_state.state = (1, 2, 3, 4, 5, 6, 7, 8, 0)  # solved puzzle
+    st.session_state.state = GOAL # solved puzzle
 if "move_count" not in st.session_state:
     st.session_state.move_count = 0
 
 defaults = {
-    "state": GOAL,                         # current puzzle state (tuple)
-    "history": [],                         # list of previous states (optional)
-    "solution": None,                      # solver path if computed
-    "sol_index": 0,                        # index into solution path
-    "move_count": 0,                       # your move counter
-    "start_time": None,                    # timestamp when timer started
-    "auto_play": False,                    # whether solution autoplay is running
+    "state": GOAL,      # current puzzle state (tuple)
+    "history": [],      # list of previous states (optional)
+    "solution": None,   # solver path if computed
+    "sol_index": 0,     # index into solution path
+    "move_count": 0,    # your move counter
+    "start_time": None, # timestamp when timer started
+    "auto_play": False, # whether solution autoplay is running
 }
-
 for key, val in defaults.items():
     if key not in st.session_state:
         st.session_state[key] = val
 
-# Image slicing 
+# store last processed upload to prevent auto solve after click
+if "last_upload_id" not in st.session_state:
+    st.session_state.last_upload_id = None
+
+# Image slicing
 def crop_center_square(img: Image.Image) -> Image.Image:
     w,h = img.size
     m = min(w,h)
@@ -128,7 +144,7 @@ def slice_into_tiles(img: Image.Image):
     tiles[0] = blank
     return tiles
 
-# Streamlit app 
+# Streamlit app
 st.set_page_config(page_title="🧩 Puzzle Your Image! 🧩", layout="centered")
 st.title("🧩 Puzzle Your Image! 🧩")
 
@@ -137,41 +153,40 @@ if "tiles" not in st.session_state:
     # load default image from an embedded small placeholder (a simple colored PIL created image)
     default = Image.new("RGB",(450,450),(180,200,230))
     draw = ImageDraw.Draw(default)
-    draw.text((20,20),"Upload an image to make your puzzle", fill=(10,10,10))
+    draw.text((20,20),"Upload an image", fill=(10,10,10))
     st.session_state.tiles = slice_into_tiles(default)
-if "state" not in st.session_state:
-    st.session_state.state = GOAL
 if "history" not in st.session_state:
     st.session_state.history = []
-if "solution" not in st.session_state:
-    st.session_state.solution = None
-if "sol_index" not in st.session_state:
-    st.session_state.sol_index = 0
 if "auto_play" not in st.session_state:
     st.session_state.auto_play = False
+if "start_time" not in st.session_state:
+    st.session_state.start_time = None
 
 # Upload
 uploaded = st.file_uploader("Upload image (jpg/png)", type=["png","jpg","jpeg"])
-if uploaded:
-    img = Image.open(io.BytesIO(uploaded.read())).convert("RGB")
-    st.session_state.tiles = slice_into_tiles(img)
-    st.session_state.state = GOAL
-    st.session_state.solution = None
-    st.session_state.sol_index = 0
-    st.success("Image loaded and sliced. Start shuffling or play from the goal!")
+if uploaded is not None:
+    file_bytes = uploaded.getvalue()
+    upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
+    if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
+        img = Image.open(BytesIO(file_bytes)).convert("RGB")
+        st.session_state.tiles = slice_into_tiles(img)
+        st.session_state.state = GOAL
+        st.session_state.solution = None
+        st.session_state.sol_index = 0
+        st.session_state.last_upload_id = upload_fingerprint
+        st.success("Image loaded and sliced. Start shuffling or play from the goal!")
 
 # Controls
 col1, col2, col3, col4 = st.columns([1,1,1,1])
 with col1:
-    if st.button("Shuffle pieces"):
+    if st.button("Shuffle pieces", key="btn_shuffle"):
         # perform many random legal moves from GOAL to guarantee solvable
         s = list(GOAL)
         moves = random.randint(20,60)
         last = None
         for _ in range(moves):
             nbs = neighbors(tuple(s))
-            # avoid undo
-            if last and len(nbs)>1:
+            if last and len(nbs) > 1:
                 nbs = [nb for nb in nbs if nb != last]
             nxt = random.choice(nbs)
             last = tuple(s)
@@ -184,7 +199,7 @@ with col1:
         st.session_state.start_time = time.time()
 
 with col2:
-    if st.button("Reset to goal"):
+    if st.button("Reset to goal", key="btn_reset"):
         st.session_state.state = GOAL
         st.session_state.history = []
         st.session_state.solution = None
@@ -193,7 +208,7 @@ with col2:
         st.session_state.start_time = time.time()
 
 with col3:
-    if st.button("Solve (A* - optimal)"):
+    if st.button("Solve (A* - optimal)", key="btn_solve"):
         if not is_solvable(st.session_state.state):
             st.error("This configuration is not solvable!")
         else:
@@ -204,25 +219,24 @@ with col3:
             if path is None:
                 st.error("A* failed to find a solution within limits.")
             else:
+                # Preparing step-by-step playback
+                st.session_state.state = GOAL
                 st.session_state.solution = path
                 st.session_state.sol_index = 0
+                st.session_state.auto_play = False
                 st.success(f"Found solution in {len(path)-1} moves (time {t1-t0:.2f}s).")
+
 with col4:
-    import time
     if "move_count" not in st.session_state:
         st.session_state.move_count = 0
     if "start_time" not in st.session_state:
         st.session_state.start_time = None
 
-# Show status
+# Status
 st.markdown(f"**Current state (solvable: {'Yes' if is_solvable(st.session_state.state) else 'No'})**")
 moves_so_far = st.session_state.move_count
-if st.session_state.start_time:
-    elapsed = int(time.time() - st.session_state.start_time)
-else:
-    elapsed = 0
+elapsed = int(time.time() - st.session_state.start_time) if st.session_state.start_time else 0
 minutes, seconds = divmod(elapsed, 60)
-
 st.write(f"**Moves made:** {moves_so_far}")
 st.write(f"**Time elapsed:** {minutes:02d}:{seconds:02d}")
 
@@ -235,99 +249,89 @@ for r in range(3):
     for c in range(3):
         idx = rc_to_index(r, c)
         tile_num = state[idx]
-
         with cols[c]:
-            # Render the tile as a clickable button with its image
-            if st.button(
-                f"{tile_num}",  # key label (unique per tile)
-                key=f"tile_{idx}",
-            ):
+            # If solution currently loaded for playback, keeps main board interactive
+            if st.button(f"{tile_num}", key=f"tile_{idx}"):
                 zero_idx = state.index(0)
                 zr, zc = index_to_rc(zero_idx)
                 tr, tc = index_to_rc(idx)
-
-                # Only move if tile is adjacent to blank
                 if abs(zr - tr) + abs(zc - tc) == 1:
                     state[zero_idx], state[idx] = state[idx], state[zero_idx]
                     st.session_state.history.append(tuple(state))
                     st.session_state.state = tuple(state)
-                    st.session_state.solution = None
+                    st.session_state.solution = None  # invalidate any old solution
                     st.session_state.move_count += 1
-
-            # Always display the tile image (not clickable if it's the blank)
+                    st.rerun()  # refresh to avoid ghost image
             st.image(tiles[tile_num], use_container_width=True)
 
-# If a solution exists, provide stepper to walk through
+#Step-by-step playback
 if st.session_state.solution:
     st.markdown("---")
     st.subheader("Solution playback")
+
     sol = st.session_state.solution
-    st.write(f"Total moves: {len(sol)-1}")
-    col_a, col_b, col_c, col_d = st.columns([1,1,1,1])
-    with col_a:
-        if st.button("Prev"):
-            st.session_state.sol_index = max(0, st.session_state.sol_index-1)
-    with col_b:
-        if st.button("Next"):
-            st.session_state.sol_index = min(len(sol)-1, st.session_state.sol_index+1)
-    with col_c:
-        if st.button("Go to start"):
+    n_steps = len(sol) - 1
+
+    st.write(f"Optimal path length: {n_steps} moves")
+
+    # Controls
+    c1, c2, c3, c4 = st.columns([1,1,1,1])
+    with c1:
+        if st.button("Prev", key="pb_prev"):
+            st.session_state.sol_index = max(0, st.session_state.sol_index - 1)
+            st.rerun()
+    with c2:
+        if st.button("Next", key="pb_next"):
+            st.session_state.sol_index = min(len(sol) - 1, st.session_state.sol_index + 1)
+            st.rerun()
+    with c3:
+        if st.button("Go to start", key="pb_start"):
             st.session_state.sol_index = 0
-    with col_d:
-        if st.button("Go to end"):
-            st.session_state.sol_index = len(sol)-1
+            st.rerun()
+    with c4:
+        if st.button("Go to end", key="pb_end"):
+            st.session_state.sol_index = len(sol) - 1
+            st.rerun()
 
-    # Auto-play controls
-    ap_col1, ap_col2 = st.columns([1,1])
-    with ap_col1:
-        if st.button("Auto-play"):
+    ap1, ap2 = st.columns([1,1])
+    with ap1:
+        if st.button("Auto-play", key="pb_auto"):
             st.session_state.auto_play = True
-    with ap_col2:
-        if st.button("Stop"):
+            st.rerun()
+    with ap2:
+        if st.button("Stop", key="pb_stop"):
             st.session_state.auto_play = False
+            st.rerun()
 
-    # show current solution step
-    idx = st.session_state.sol_index
-    st.write(f"Step {idx} / {len(sol)-1}")
-    # draw the state images inline
-    cur = sol[idx]
-    cols = st.columns(3)
-    for c in range(3):
-        idx = r * 3 + c
-        tile_num = state[idx]
+    # Render board for current step
+    step_idx = st.session_state.sol_index
+    st.write(f"Step {step_idx} / {n_steps}")
 
-        with cols[c]:
-            if tile_num == 0:
-                st.image(tiles[0], use_container_width=True)  # blank tile
-            else:
-                if st.image_button(tiles[tile_num], key=f"tile_{idx}", use_container_width=True):
-                    zero_idx = state.index(0)
-                    zr, zc = divmod(zero_idx, 3)
-                    tr, tc = divmod(idx, 3)
-                    if abs(zr - tr) + abs(zc - tc) == 1:
-                        new_state = list(state)
-                        new_state[zero_idx], new_state[idx] = new_state[idx], new_state[zero_idx]
-                        st.session_state.state = tuple(new_state)
-                        st.session_state.move_count += 1
+    cur = sol[step_idx]  # tuple of 9 tiles for this step
+    for r in range(3):
+        cols = st.columns(3)
+        for c in range(3):
+            i = rc_to_index(r, c)
+            tnum = cur[i]
+            with cols[c]:
+                st.image(tiles[tnum], use_container_width=True)
 
-    # autoplay mechanism: advance index and rerun while auto_play true
+    # Auto play handler
     if st.session_state.auto_play:
-        # small delay and advance
-        next_idx = min(len(sol)-1, st.session_state.sol_index+1)
-        if next_idx != st.session_state.sol_index:
-            st.session_state.sol_index = next_idx
+        if st.session_state.sol_index < len(sol) - 1:
             time.sleep(0.4)
-            st.experimental_rerun()
+            st.session_state.sol_index += 1
+            st.rerun()
         else:
             st.session_state.auto_play = False
-            st.success("Reached final state.")
+            st.success("Yay! You Did it!")
 
-# Footer / small help
 st.markdown("---")
 st.markdown("""
 **Instructions**
 - Upload an image to be cropped to center and sliced into 9 tiles.
-- Shuffle to scramble the puzzle pieces (or manually move tiles by clicking Move buttons).
-- Press *Solve (A\**)* to compute the optimal solution; then step through or auto-play.
+- Shuffle to scramble the puzzle pieces (or move tiles by clicking their buttons).
+- Press *Solve (A\*)* to compute an optimal path, then use **Solution playback** to step through or auto-play.
 """)
+
 
