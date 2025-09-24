@@ -1,7 +1,7 @@
-Homework 1
-CAI4002
-Professor Xian Su
-Gabriela del Cristo Sanchez
+Homework 1\n
+CAI4002\n
+Professor Xian Su\n
+Gabriela del Cristo Sanchez\n
 Alessandro Sanchez-Greco
 
 1. Install the requirements
