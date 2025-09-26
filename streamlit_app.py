@@ -48,7 +48,6 @@ section[data-testid="stSidebar"] {
   opacity: 0.95;
 }
 
-</style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
