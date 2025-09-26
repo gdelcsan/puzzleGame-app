@@ -38,17 +38,6 @@ section[data-testid="stSidebar"] {
   background: #f6f8fa !important;             /* GitHub-ish paper gray */
   border-right: 1px solid rgba(27,31,35,0.1);  /* subtle divider */
 }
-
-.cayman-sb-header {
-  color: #fff;
-  text-align: center;
-  padding: 1.25rem 0.75rem;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957);
-  border-bottom: 1px solid rgba(255,255,255,0.25);
-  border-radius: 10px;
-  margin: 0.5rem 0.25rem 0.75rem 0.25rem;
-}
 .cayman-sb-header h2 {
   margin: 0;
   font-size: 1.15rem;
@@ -60,27 +49,8 @@ section[data-testid="stSidebar"] {
   opacity: 0.95;
 }
 
-/* Sidebar titles & labels */
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3 {
-  color: #24292e !important;
-  margin-top: 0.75rem;
-}
 section[data-testid="stSidebar"] label, 
 section[data-testid="stSidebar"] p {
-  color: #24292e !important;
-}
-
-/* Inputs / widgets */
-section[data-testid="stSidebar"] .stTextInput > div > div > input,
-section[data-testid="stSidebar"] .stNumberInput input,
-section[data-testid="stSidebar"] .stSelectbox > div > div,
-section[data-testid="stSidebar"] .stMultiSelect > div > div,
-section[data-testid="stSidebar"] textarea {
-  background: #ffffff !important;
-  border: 1px solid rgba(27,31,35,0.15) !important;
-  border-radius: 6px !important;
   color: #24292e !important;
 }
 
@@ -93,31 +63,9 @@ section[data-testid="stSidebar"] .stSlider [role="slider"] {
   box-shadow: none !important;
 }
 
-/* Checkboxes / radios */
-section[data-testid="stSidebar"] .stCheckbox div[role="checkbox"],
-section[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] > label > div:first-child {
-  border: 1px solid rgba(27,31,35,0.3) !important;
-
-}
-section[data-testid="stSidebar"] .stDownloadButton > button {
-  width: 100%;
-  border: 1px solid rgba(27,31,35,0.15) !important;
-  color: #24292e !important;
-  background: #ffffff !important;
-}
-
-section[data-testid="stSidebar"] details {
-  border: 1px solid rgba(27,31,35,0.1) !important;
-  border-radius: 8px !important;
-  background: #ffffff !important;
-}
-section[data-testid="stSidebar"] a:hover {
-  text-decoration: underline !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
-# --- Optional: render a Cayman-style header in the sidebar ---
 with st.sidebar:
     st.markdown(
         """
