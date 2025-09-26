@@ -172,7 +172,7 @@ if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
 # Upload
-uploaded = st.file_uploader(type=["png","jpg","jpeg"])
+uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
 if uploaded is not None:
     file_bytes = uploaded.getvalue()
     upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
