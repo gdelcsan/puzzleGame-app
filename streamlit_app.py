@@ -22,6 +22,14 @@ html, body, [class*="css"] {
   margin-bottom: 1.25rem;
 }
 
+.sidebar {
+  padding: 20px;
+  width: 250px;
+  flex-shrink: 0;
+  background-color: var(--color-base-1); // Use a variable from the base theme
+  border-right: 1px solid var(--color-accent-emphasis); // Use a border color from the base theme
+}
+
 </style>
 """, unsafe_allow_html=True)
 
