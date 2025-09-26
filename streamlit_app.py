@@ -162,7 +162,6 @@ if "tiles" not in st.session_state:
     # load default image from an embedded small placeholder (a simple colored PIL created image)
     default = Image.new("RGB",(450,450),(180,200,230))
     draw = ImageDraw.Draw(default)
-    draw.text((20,20),"Upload an image", fill=(10,10,10))
     st.session_state.tiles = slice_into_tiles(default)
 if "history" not in st.session_state:
     st.session_state.history = []
