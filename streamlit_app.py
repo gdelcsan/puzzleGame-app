@@ -324,29 +324,29 @@ if st.session_state.solution:
     # Controls
     c1, c2, c3, c4 = st.columns([1,1,1,1])
     with c1:
-        if st.button("Prev", key="pb_prev"):
+        if st.sidebar.button("Prev", key="pb_prev"):
             st.session_state.sol_index = max(0, st.session_state.sol_index - 1)
             st.rerun()
     with c2:
-        if st.button("Next", key="pb_next"):
+        if st.sidebar.button("Next", key="pb_next"):
             st.session_state.sol_index = min(len(sol) - 1, st.session_state.sol_index + 1)
             st.rerun()
     with c3:
-        if st.button("Go to start", key="pb_start"):
+        if st.sidebar.button("Go to start", key="pb_start"):
             st.session_state.sol_index = 0
             st.rerun()
     with c4:
-        if st.button("Go to end", key="pb_end"):
+        if st.sidebar.button("Go to end", key="pb_end"):
             st.session_state.sol_index = len(sol) - 1
             st.rerun()
 
     ap1, ap2 = st.columns([1,1])
     with ap1:
-        if st.button("Auto-play", key="pb_auto"):
+        if st.sidebar.button("Auto-play", key="pb_auto"):
             st.session_state.auto_play = True
             st.rerun()
     with ap2:
-        if st.button("Stop", key="pb_stop"):
+        if st.sidebar.button("Stop", key="pb_stop"):
             st.session_state.auto_play = False
             st.rerun()
 
