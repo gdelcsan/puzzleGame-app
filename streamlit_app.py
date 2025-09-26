@@ -19,7 +19,7 @@ html, body, [class*="css"] {
   padding: 2.5rem 1rem;
   background-color: #159957;
   background-image: linear-gradient(120deg, #155799, #159957);
-  border-radius: 12px;
+  border-radius: 20px;
   margin-bottom: 1.25rem;
 }
 
