@@ -22,7 +22,6 @@ html, body, [class*="css"] {
   margin-bottom: 1.25rem;
 }
 
-</style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
