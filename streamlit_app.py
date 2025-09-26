@@ -23,10 +23,6 @@ html, body, [class*="css"] {
   margin-bottom: 1.25rem;
 }
 
-.block-container {
-  padding-top: 1.5rem;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
