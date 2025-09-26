@@ -16,7 +16,7 @@ html, body, [class*="css"] {
 .cayman-header {
   color: #fff;
   text-align: center;
-  padding: 2.5rem 1rem;
+  padding: 2.5rem 3rem;
   background-color: #159957;
   background-image: linear-gradient(120deg, #155799, #159957);
   border-radius: 30px;
