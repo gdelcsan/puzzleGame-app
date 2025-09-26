@@ -34,7 +34,8 @@ st.markdown("""
 
 /* Sidebar container */
 section[data-testid="stSidebar"] {
-  background: #f6f8fa !important;             
+  background-color: #159957;
+  background-image: linear-gradient(120deg, #155799, #159957);             
   border-right: 1px solid rgba(27,31,35,0.1);  
 }
 .cayman-sb-header h2 {
