@@ -206,7 +206,7 @@ with col1:
         st.session_state.start_time = time.time()
 
 with col2:
-    if st.button("Reset to goal", key="btn_reset"):
+    if st.sidebar.button("Reset to goal", key="btn_reset"):
         st.session_state.state = GOAL
         st.session_state.history = []
         st.session_state.solution = None
@@ -215,7 +215,7 @@ with col2:
         st.session_state.start_time = time.time()
 
 with col3:
-    if st.button("Solve (A* - optimal)", key="btn_solve"):
+    if st.sidebar.button("Solve (A* - optimal)", key="btn_solve"):
         if not is_solvable(st.session_state.state):
             st.error("This configuration is not solvable!")
         else:
