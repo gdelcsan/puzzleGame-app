@@ -25,7 +25,6 @@ html, body, [class*="css"] {
 </style>
 """, unsafe_allow_html=True)
 
-# (Optional) Render a Cayman-style header block at the top of the page
 st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image 🧩</h1><p>Upload an image to play!</p></div>', unsafe_allow_html=True)
 
 # Puzzle logic
@@ -185,7 +184,7 @@ if uploaded is not None:
         st.success("Image loaded and sliced. Start shuffling or play from the goal!")
 
 # Controls
-col1, col2, col3, col4 = st.columns([1,1,1,1])
+col1, col2, col3 = st.columns([1,1,1])
 with col1:
     if st.button("Shuffle pieces", key="btn_shuffle"):
         # perform many random legal moves from GOAL to guarantee solvable
