@@ -39,13 +39,6 @@ section[data-testid="stSidebar"] {
   border-right: 1px solid rgba(27,31,35,0.1);  /* subtle divider */
 }
 
-/* Sidebar inner padding */
-section[data-testid="stSidebar"] .block-container {
-  padding-top: 0.75rem !important;
-  padding-bottom: 1rem !important;
-}
-
-/* Cayman gradient header inside sidebar */
 .cayman-sb-header {
   color: #fff;
   text-align: center;
@@ -104,16 +97,7 @@ section[data-testid="stSidebar"] .stSlider [role="slider"] {
 section[data-testid="stSidebar"] .stCheckbox div[role="checkbox"],
 section[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] > label > div:first-child {
   border: 1px solid rgba(27,31,35,0.3) !important;
-}
 
-/* Buttons (primary look like Cayman) */
-section[data-testid="stSidebar"] .stButton > button {
-  width: 100%;
-  border: 0 !important;
-  border-radius: 6px !important;
-  font-weight: 700 !important;
-  color: #fff !important;
-  background: linear-gradient(120deg, #155799, #159957) !important;
 }
 section[data-testid="stSidebar"] .stDownloadButton > button {
   width: 100%;
@@ -122,23 +106,10 @@ section[data-testid="stSidebar"] .stDownloadButton > button {
   background: #ffffff !important;
 }
 
-/* File uploader & expander polish */
-section[data-testid="stSidebar"] [data-testid="stFileUploader"] {
-  background: #fff !important;
-  border: 1px dashed rgba(27,31,35,0.25) !important;
-  border-radius: 8px !important;
-  padding: 0.5rem !important;
-}
 section[data-testid="stSidebar"] details {
   border: 1px solid rgba(27,31,35,0.1) !important;
   border-radius: 8px !important;
   background: #ffffff !important;
-}
-
-/* Links */
-section[data-testid="stSidebar"] a {
-  color: #155799 !important;
-  text-decoration: none !important;
 }
 section[data-testid="stSidebar"] a:hover {
   text-decoration: underline !important;
