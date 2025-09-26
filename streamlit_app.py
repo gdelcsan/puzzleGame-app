@@ -22,19 +22,143 @@ html, body, [class*="css"] {
   margin-bottom: 1.25rem;
 }
 
-.sidebar {
-  padding: 20px;
-  width: 250px;
-  flex-shrink: 0;
-  background-color: var(--color-base-1); // Use a variable from the base theme
-  border-right: 1px solid var(--color-accent-emphasis); // Use a border color from the base theme
-}
-
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+<style>
+/* Base font */
+:root, html, body, [class*="css"] {
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Sidebar container */
+section[data-testid="stSidebar"] {
+  background: #f6f8fa !important;             /* GitHub-ish paper gray */
+  border-right: 1px solid rgba(27,31,35,0.1);  /* subtle divider */
+}
+
+/* Sidebar inner padding */
+section[data-testid="stSidebar"] .block-container {
+  padding-top: 0.75rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* Cayman gradient header inside sidebar */
+.cayman-sb-header {
+  color: #fff;
+  text-align: center;
+  padding: 1.25rem 0.75rem;
+  background-color: #159957;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  margin: 0.5rem 0.25rem 0.75rem 0.25rem;
+}
+.cayman-sb-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.cayman-sb-header p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+/* Sidebar titles & labels */
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+  color: #24292e !important;
+  margin-top: 0.75rem;
+}
+section[data-testid="stSidebar"] label, 
+section[data-testid="stSidebar"] p {
+  color: #24292e !important;
+}
+
+/* Inputs / widgets */
+section[data-testid="stSidebar"] .stTextInput > div > div > input,
+section[data-testid="stSidebar"] .stNumberInput input,
+section[data-testid="stSidebar"] .stSelectbox > div > div,
+section[data-testid="stSidebar"] .stMultiSelect > div > div,
+section[data-testid="stSidebar"] textarea {
+  background: #ffffff !important;
+  border: 1px solid rgba(27,31,35,0.15) !important;
+  border-radius: 6px !important;
+  color: #24292e !important;
+}
+
+/* Sliders */
+section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] > div {
+  background: rgba(21,153,87,0.15) !important;
+}
+section[data-testid="stSidebar"] .stSlider [role="slider"] {
+  background: linear-gradient(120deg, #155799, #159957) !important;
+  box-shadow: none !important;
+}
+
+/* Checkboxes / radios */
+section[data-testid="stSidebar"] .stCheckbox div[role="checkbox"],
+section[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] > label > div:first-child {
+  border: 1px solid rgba(27,31,35,0.3) !important;
+}
+
+/* Buttons (primary look like Cayman) */
+section[data-testid="stSidebar"] .stButton > button {
+  width: 100%;
+  border: 0 !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: linear-gradient(120deg, #155799, #159957) !important;
+}
+section[data-testid="stSidebar"] .stDownloadButton > button {
+  width: 100%;
+  border: 1px solid rgba(27,31,35,0.15) !important;
+  color: #24292e !important;
+  background: #ffffff !important;
+}
+
+/* File uploader & expander polish */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] {
+  background: #fff !important;
+  border: 1px dashed rgba(27,31,35,0.25) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem !important;
+}
+section[data-testid="stSidebar"] details {
+  border: 1px solid rgba(27,31,35,0.1) !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+}
+
+/* Links */
+section[data-testid="stSidebar"] a {
+  color: #155799 !important;
+  text-decoration: none !important;
+}
+section[data-testid="stSidebar"] a:hover {
+  text-decoration: underline !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- Optional: render a Cayman-style header in the sidebar ---
+with st.sidebar:
+    st.markdown(
+        """
+        <div class="cayman-sb-header">
+            <h2>🧩 Puzzle Controls</h2>
+            <p>Cayman-styled sidebar</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image 🧩</h1><p>Upload an image to play!</p></div>', unsafe_allow_html=True)
-st.markdown('<div class="sidebar">, unsafe_allow_html=True)
 
 # Puzzle logic
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
