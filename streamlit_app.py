@@ -256,7 +256,6 @@ with col2:
 
 with col3:
     if st.sidebar.button("Solve (A* - optimal)", key="btn_solve"):
-       st.divider()
         if not is_solvable(st.session_state.state):
             st.error("This configuration is not solvable!")
         else:
@@ -279,6 +278,9 @@ with col4:
         st.session_state.move_count = 0
     if "start_time" not in st.session_state:
         st.session_state.start_time = None
+
+with st.sidebar:
+    st.divider()
 
 # Status
 st.markdown(f"**Current state (solvable: {'Yes' if is_solvable(st.session_state.state) else 'No'})**")
