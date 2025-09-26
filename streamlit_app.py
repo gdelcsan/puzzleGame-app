@@ -23,31 +23,10 @@ html, body, [class*="css"] {
   margin-bottom: 1.25rem;
 }
 
-/* Card/background vibes similar to GitHub Pages content area */
 .block-container {
   padding-top: 1.5rem;
 }
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* Buttons nudged toward Cayman’s palette */
-.stButton>button {
-  border: 0;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-/* Primary buttons */
-.stButton>button:not([class*="secondary"]) {
-  background: linear-gradient(120deg, #155799, #159957);
-  color: #fff;
-}
-
-/* Secondary areas (like containers) akin to #f6f8fa */
-section[data-testid="stSidebar"] {
-  background-color: #f6f8fa !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
