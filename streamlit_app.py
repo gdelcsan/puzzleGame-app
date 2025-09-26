@@ -4,16 +4,55 @@ import io, random, heapq, time
 import hashlib  #for implementing fingerprint for uploaded file
 from io import BytesIO # for file handling
 
-st.markdown(
-   """
-   <style>
-   .stApp {
-       background-color: #ADD8E6; /* Example: lavender */
-   }
-   </style>
-   """,
-   unsafe_allow_html=True
-)
+st.markdown("""
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+<style>
+/* Global font similar to Cayman */
+html, body, [class*="css"] {
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Optional: a top banner like Cayman's .page-header */
+.cayman-header {
+  color: #fff;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background-color: #159957;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+}
+
+/* Card/background vibes similar to GitHub Pages content area */
+.block-container {
+  padding-top: 1.5rem;
+}
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Buttons nudged toward Cayman’s palette */
+.stButton>button {
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Primary buttons */
+.stButton>button:not([class*="secondary"]) {
+  background: linear-gradient(120deg, #155799, #159957);
+  color: #fff;
+}
+
+/* Secondary areas (like containers) akin to #f6f8fa */
+section[data-testid="stSidebar"] {
+  background-color: #f6f8fa !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# (Optional) Render a Cayman-style header block at the top of the page
+st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image!</h1><p>Cayman-styled Streamlit</p></div>', unsafe_allow_html=True)
 
 # Puzzle logic
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
