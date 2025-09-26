@@ -49,16 +49,6 @@ section[data-testid="stSidebar"] {
   opacity: 0.95;
 }
 
-section[data-testid="stSidebar"] label, 
-section[data-testid="stSidebar"] p {
-  color: #24292e !important;
-}
-
-section[data-testid="stSidebar"] .stSlider [role="slider"] {
-  background: linear-gradient(120deg, #155799, #159957) !important;
-  box-shadow: none !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
