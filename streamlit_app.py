@@ -46,6 +46,8 @@ section[data-testid="stSidebar"] {
   font-weight: 700;
 }
 .cayman-sb-header p {
+  color: #000000;
+  text-align: left;
   margin: 0.25rem 0 0 0;
   font-size: 0.85rem;
   opacity: 0.95;
