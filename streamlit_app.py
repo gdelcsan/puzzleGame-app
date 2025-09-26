@@ -41,6 +41,7 @@ section[data-testid="stSidebar"] {
   border-right: 1px solid rgba(27,31,35,0.1);  
 }
 .cayman-sb-header h2 {
+  color: #000000;
   margin: 0;
   font-size: 1.15rem;
   font-weight: 700;
