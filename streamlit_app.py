@@ -54,8 +54,7 @@ with st.sidebar:
     st.markdown(
         """
         <div class="cayman-sb-header">
-            <h2>🧩 Puzzle Controls</h2>
-            <p>Cayman-styled sidebar</p>
+            <h2>Puzzle Controls</h2>
         </div>
         """,
         unsafe_allow_html=True
