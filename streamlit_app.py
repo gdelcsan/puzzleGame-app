@@ -280,7 +280,7 @@ with col4:
         st.session_state.start_time = None
 
 with st.sidebar:
-    st.markdown("---")
+    st.divider()
 
 # Status
 st.markdown(f"**Current state (solvable: {'Yes' if is_solvable(st.session_state.state) else 'No'})**")
