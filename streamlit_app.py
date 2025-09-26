@@ -186,7 +186,7 @@ if uploaded is not None:
 # Controls
 col1, col2, col3, col4 = st.columns([1,1,1,1])
 with col1:
-    if st.button("Shuffle pieces", key="btn_shuffle"):
+    if st.sidebar.button("Shuffle pieces", key="btn_shuffle"):
         # perform many random legal moves from GOAL to guarantee solvable
         s = list(GOAL)
         moves = random.randint(20,60)
