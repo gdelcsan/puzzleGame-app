@@ -35,8 +35,8 @@ st.markdown("""
 
 /* Sidebar container */
 section[data-testid="stSidebar"] {
-  background: #f6f8fa !important;             /* GitHub-ish paper gray */
-  border-right: 1px solid rgba(27,31,35,0.1);  /* subtle divider */
+  background: #f6f8fa !important;             
+  border-right: 1px solid rgba(27,31,35,0.1);  
 }
 .cayman-sb-header h2 {
   margin: 0;
@@ -54,10 +54,6 @@ section[data-testid="stSidebar"] p {
   color: #24292e !important;
 }
 
-/* Sliders */
-section[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] > div {
-  background: rgba(21,153,87,0.15) !important;
-}
 section[data-testid="stSidebar"] .stSlider [role="slider"] {
   background: linear-gradient(120deg, #155799, #159957) !important;
   box-shadow: none !important;
