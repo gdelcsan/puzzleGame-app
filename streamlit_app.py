@@ -322,7 +322,7 @@ if st.session_state.solution:
     st.write(f"Optimal path length: {n_steps} moves")
 
     # Controls
-    c1, c2, c3, c4 = st.columns([1,1,1,1])
+    c1, c2, c3, c4 = st.columns([1,2,1,1])
     with c1:
         if st.sidebar.button("Prev", key="pb_prev"):
             st.session_state.sol_index = max(0, st.session_state.sol_index - 1)
