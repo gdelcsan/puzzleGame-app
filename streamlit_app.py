@@ -184,7 +184,7 @@ if uploaded is not None:
         st.success("Image loaded and sliced. Start shuffling or play from the goal!")
 
 # Controls
-col1, col2, col3, col4 = st.columns([30,30,30,1])
+col1, col2, col3, col4 = st.columns([40,30,40,1])
 with col1:
     if st.button("Shuffle pieces", key="btn_shuffle"):
         # perform many random legal moves from GOAL to guarantee solvable
