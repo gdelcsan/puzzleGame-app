@@ -27,7 +27,7 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 # (Optional) Render a Cayman-style header block at the top of the page
-st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image!</h1><p>Cayman-styled Streamlit</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image!</h1><p>Upload an image to play</p></div>', unsafe_allow_html=True)
 
 # Puzzle logic
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
