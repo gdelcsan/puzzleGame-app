@@ -190,7 +190,7 @@ def slice_into_tiles(img: Image.Image):
             tiles[num] = tile_img
             num += 1
     # Tile style
-    blank = Image.new("RGB", (size,size), (21, 153, 87))
+    blank = Image.new("RGB", (size,size), (21, 109, 153))
     draw = ImageDraw.Draw(blank)
     draw.rectangle([1,1,size-2,size-2], outline=(200,200,200))
     tiles[0] = blank
@@ -199,7 +199,7 @@ def slice_into_tiles(img: Image.Image):
 # Session state initialization
 if "tiles" not in st.session_state:
     # load default image from an embedded small placeholder (a simple colored PIL created image)
-    default = Image.new("RGB",(450,450),(180,200,230))
+    default = Image.new("RGB",(450,450),(21, 109, 153))
     draw = ImageDraw.Draw(default)
     st.session_state.tiles = slice_into_tiles(default)
 if "history" not in st.session_state:
