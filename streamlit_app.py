@@ -190,7 +190,7 @@ def slice_into_tiles(img: Image.Image):
             tiles[num] = tile_img
             num += 1
     # Tile style
-    blank = Image.new("RGB", (size,size), (21, 109, 153))
+    blank = Image.new("RGB", (size,size), (255, 255, 255))
     draw = ImageDraw.Draw(blank)
     draw.rectangle([1,1,size-2,size-2], outline=(200,200,200))
     tiles[0] = blank
