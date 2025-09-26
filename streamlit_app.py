@@ -12,14 +12,13 @@ html, body, [class*="css"] {
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-/* Optional: a top banner like Cayman's .page-header */
 .cayman-header {
   color: #fff;
   text-align: center;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 1rem;
   background-color: #159957;
   background-image: linear-gradient(120deg, #155799, #159957);
-  border-radius: 30px;
+  border-radius: 20px;
   margin-bottom: 1.25rem;
 }
 
