@@ -4,7 +4,7 @@ import io, random, heapq, time
 import hashlib  #for implementing fingerprint for uploaded file
 from io import BytesIO # for file handling
 
-st.audio("./songpuzzle.mp3", format="audio/mpeg", autoplay=True, loop=True))
+st.audio("./songpuzzle.mp3", format="audio/mpeg", autoplay=True, loop=True)
 
 st.markdown("""
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
