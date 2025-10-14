@@ -41,20 +41,6 @@ section[data-testid="stSidebar"] {
   background-image: linear-gradient(120deg, #155799, #159957);             
   border-right: 1px solid rgba(27,31,35,0.1);  
 }
-    
-.cayman-sb-header h2 {
-  color: #fff;
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-.cayman-sb-header p {
-  color: #000000;
-  text-align: left;
-  margin: 0.25rem 0 0 0;
-  font-size: 0.85rem;
-  opacity: 0.95;
-}
 
 """, unsafe_allow_html=True)
 
