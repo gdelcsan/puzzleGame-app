@@ -41,12 +41,6 @@ section[data-testid="stSidebar"] {
   background-image: linear-gradient(120deg, #155799, #159957);             
   border-right: 1px solid rgba(27,31,35,0.1);  
 }
-
-.stButton>button {
-        border-radius: 10px;
-        background-color: #159957;
-        font-weight: 600;
-    }
     
 .cayman-sb-header h2 {
   color: #fff;
