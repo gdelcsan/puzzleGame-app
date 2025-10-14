@@ -44,7 +44,7 @@ section[data-testid="stSidebar"] {
 
 .stButton>button {
         border-radius: 10px;
-        background-color: linear-gradient(120deg, #155799, #159957);
+        background-color: #159957;
         font-weight: 600;
     }
     
