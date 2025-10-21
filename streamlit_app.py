@@ -204,10 +204,10 @@ with tab1:
         st.session_state.start_time = None
 
   # Upload
-  uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
-  if uploaded is not None:
-      file_bytes = uploaded.getvalue()
-      upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
+      uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
+      if uploaded is not None:
+          file_bytes = uploaded.getvalue()
+          upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
       if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
           img = Image.open(BytesIO(file_bytes)).convert("RGB")
           st.session_state.tiles = slice_into_tiles(img)
@@ -218,81 +218,81 @@ with tab1:
           st.success("Image loaded and sliced. Start shuffling or play from the goal!")
 
   # Controls
-  col1, col2, col3, col4 = st.columns([1,1,1,1])
-  with col1:
-    if st.sidebar.button("Shuffle pieces", key="btn_shuffle"):
-        # perform many random legal moves from GOAL to guarantee solvable
-        s = list(GOAL)
-        moves = random.randint(20,60)
-        last = None
-        for _ in range(moves):
-            nbs = neighbors(tuple(s))
-            if last and len(nbs) > 1:
-                nbs = [nb for nb in nbs if nb != last]
-            nxt = random.choice(nbs)
-            last = tuple(s)
-            s = list(nxt)
-        st.session_state.state = tuple(s)
-        st.session_state.history = []
-        st.session_state.solution = None
-        st.session_state.sol_index = 0
-        st.session_state.move_count = 0
-        st.session_state.start_time = time.time()
+      col1, col2, col3, col4 = st.columns([1,1,1,1])
+      with col1:
+        if st.sidebar.button("Shuffle pieces", key="btn_shuffle"):
+            # perform many random legal moves from GOAL to guarantee solvable
+            s = list(GOAL)
+            moves = random.randint(20,60)
+            last = None
+            for _ in range(moves):
+                nbs = neighbors(tuple(s))
+                if last and len(nbs) > 1:
+                    nbs = [nb for nb in nbs if nb != last]
+                nxt = random.choice(nbs)
+                last = tuple(s)
+                s = list(nxt)
+            st.session_state.state = tuple(s)
+            st.session_state.history = []
+            st.session_state.solution = None
+            st.session_state.sol_index = 0
+            st.session_state.move_count = 0
+            st.session_state.start_time = time.time()
 
-  with col2:
-    if st.sidebar.button("Reset to goal", key="btn_reset"):
-        st.session_state.state = GOAL
-        st.session_state.history = []
-        st.session_state.solution = None
-        st.session_state.sol_index = 0
-        st.session_state.move_count = 0
-        st.session_state.start_time = time.time()
+      with col2:
+        if st.sidebar.button("Reset to goal", key="btn_reset"):
+            st.session_state.state = GOAL
+            st.session_state.history = []
+            st.session_state.solution = None
+            st.session_state.sol_index = 0
+            st.session_state.move_count = 0
+            st.session_state.start_time = time.time()
 
-  with col3:
-    if st.sidebar.button("Solve (A* - optimal)", key="btn_solve"):
-        if not is_solvable(st.session_state.state):
-            st.error("This configuration is not solvable!")
-        else:
-            with st.spinner("Running A*..."):
-                t0 = time.time()
-                path = astar(st.session_state.state, GOAL)
-                t1 = time.time()
-            if path is None:
-                st.error("A* failed to find a solution within limits.")
+      with col3:
+        if st.sidebar.button("Solve (A* - optimal)", key="btn_solve"):
+            if not is_solvable(st.session_state.state):
+                st.error("This configuration is not solvable!")
             else:
-                # Preparing step-by-step playback
-                st.session_state.state = GOAL
-                st.session_state.solution = path
-                st.session_state.sol_index = 0
-                st.session_state.auto_play = False
-                st.success(f"Found solution in {len(path)-1} moves (time {t1-t0:.2f}s).")
+                with st.spinner("Running A*..."):
+                    t0 = time.time()
+                    path = astar(st.session_state.state, GOAL)
+                    t1 = time.time()
+                if path is None:
+                    st.error("A* failed to find a solution within limits.")
+                else:
+                    # Preparing step-by-step playback
+                    st.session_state.state = GOAL
+                    st.session_state.solution = path
+                    st.session_state.sol_index = 0
+                    st.session_state.auto_play = False
+                    st.success(f"Found solution in {len(path)-1} moves (time {t1-t0:.2f}s).")
 
-  with col4:
-    if "move_count" not in st.session_state:
-        st.session_state.move_count = 0
-    if "start_time" not in st.session_state:
-        st.session_state.start_time = None
+      with col4:
+        if "move_count" not in st.session_state:
+            st.session_state.move_count = 0
+        if "start_time" not in st.session_state:
+            st.session_state.start_time = None
 
-  with st.sidebar:
-    st.divider()
+      with st.sidebar:
+        st.divider()
 
-  # Status
-  st.markdown(f"**Current state (solvable: {'Yes' if is_solvable(st.session_state.state) else 'No'})**")
-  moves_so_far = st.session_state.move_count
-  elapsed = int(time.time() - st.session_state.start_time) if st.session_state.start_time else 0
-  minutes, seconds = divmod(elapsed, 60)
-  st.write(f"**Moves made:** {moves_so_far}")
-  st.write(f"**Time elapsed:** {minutes:02d}:{seconds:02d}")
+      # Status
+      st.markdown(f"**Current state (solvable: {'Yes' if is_solvable(st.session_state.state) else 'No'})**")
+      moves_so_far = st.session_state.move_count
+      elapsed = int(time.time() - st.session_state.start_time) if st.session_state.start_time else 0
+      minutes, seconds = divmod(elapsed, 60)
+      st.write(f"**Moves made:** {moves_so_far}")
+      st.write(f"**Time elapsed:** {minutes:02d}:{seconds:02d}")
 
-    # Puzzle grid display
-        state = list(st.session_state.state)
-        tiles = st.session_state.tiles
+        # Puzzle grid display
+      state = list(st.session_state.state)
+      tiles = st.session_state.tiles
 
-  for r in range(3):
-    cols = st.columns(3)
-    for c in range(3):
-        idx = rc_to_index(r, c)
-        tile_num = state[idx]
+      for r in range(3):
+        cols = st.columns(3)
+        for c in range(3):
+            idx = rc_to_index(r, c)
+            tile_num = state[idx]
         with cols[c]:
             # If solution currently loaded for playback, keeps main board interactive
             if st.button(f"{tile_num}", key=f"tile_{idx}"):
