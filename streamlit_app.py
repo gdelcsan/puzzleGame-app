@@ -204,34 +204,34 @@ with tab1:
         st.session_state.start_time = None
 
   # Upload
-      uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
-      if uploaded is not None:
-          file_bytes = uploaded.getvalue()
-          upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
-      if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
-          img = Image.open(BytesIO(file_bytes)).convert("RGB")
-          st.session_state.tiles = slice_into_tiles(img)
-          st.session_state.state = GOAL
-          st.session_state.solution = None
-          st.session_state.sol_index = 0
-          st.session_state.last_upload_id = upload_fingerprint
-          st.success("Image loaded and sliced. Start shuffling or play from the goal!")
+uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
+    if uploaded is not None:
+        file_bytes = uploaded.getvalue()
+        upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
+    if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
+        img = Image.open(BytesIO(file_bytes)).convert("RGB")
+        st.session_state.tiles = slice_into_tiles(img)
+        st.session_state.state = GOAL
+        st.session_state.solution = None
+        st.session_state.sol_index = 0
+        st.session_state.last_upload_id = upload_fingerprint
+        st.success("Image loaded and sliced. Start shuffling or play from the goal!")
 
   # Controls
-      col1, col2, col3, col4 = st.columns([1,1,1,1])
-      with col1:
-        if st.sidebar.button("Shuffle pieces", key="btn_shuffle"):
-            # perform many random legal moves from GOAL to guarantee solvable
-            s = list(GOAL)
-            moves = random.randint(20,60)
-            last = None
-            for _ in range(moves):
-                nbs = neighbors(tuple(s))
-                if last and len(nbs) > 1:
-                    nbs = [nb for nb in nbs if nb != last]
-                nxt = random.choice(nbs)
-                last = tuple(s)
-                s = list(nxt)
+col1, col2, col3, col4 = st.columns([1,1,1,1])
+    with col1:
+    if st.sidebar.button("Shuffle pieces", key="btn_shuffle"):
+        # perform many random legal moves from GOAL to guarantee solvable
+        s = list(GOAL)
+        moves = random.randint(20,60)
+        last = None
+        for _ in range(moves):
+            nbs = neighbors(tuple(s))
+            if last and len(nbs) > 1:
+                nbs = [nb for nb in nbs if nb != last]
+            nxt = random.choice(nbs)
+            last = tuple(s)
+            s = list(nxt)
             st.session_state.state = tuple(s)
             st.session_state.history = []
             st.session_state.solution = None
