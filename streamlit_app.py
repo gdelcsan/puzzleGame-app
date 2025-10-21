@@ -187,16 +187,16 @@ with tab1:
       return tiles
 
     # Session state initialization
-    if "tiles" not in st.session_state:
-      default = Image.new("RGB",(450,450),(21, 109, 153))
-      draw = ImageDraw.Draw(default)
-      st.session_state.tiles = slice_into_tiles(default)
-    if "history" not in st.session_state:
-      st.session_state.history = []
-    if "auto_play" not in st.session_state:
-      st.session_state.auto_play = False
-    if "start_time" not in st.session_state:
-      st.session_state.start_time = None
+      if "tiles" not in st.session_state:
+        default = Image.new("RGB",(450,450),(21, 109, 153))
+        draw = ImageDraw.Draw(default)
+        st.session_state.tiles = slice_into_tiles(default)
+      if "history" not in st.session_state:
+        st.session_state.history = []
+      if "auto_play" not in st.session_state:
+        st.session_state.auto_play = False
+      if "start_time" not in st.session_state:
+        st.session_state.start_time = None
 
   # Upload
   uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
