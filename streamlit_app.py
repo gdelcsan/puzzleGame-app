@@ -285,8 +285,8 @@ with tab1:
   st.write(f"**Time elapsed:** {minutes:02d}:{seconds:02d}")
 
     # Puzzle grid display
-    state = list(st.session_state.state)
-    tiles = st.session_state.tiles
+        state = list(st.session_state.state)
+        tiles = st.session_state.tiles
 
   for r in range(3):
     cols = st.columns(3)
