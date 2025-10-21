@@ -3,7 +3,7 @@ from PIL import Image, ImageOps, ImageDraw
 import io, random, heapq, time
 import hashlib  # for implementing fingerprint for uploaded file
 from io import BytesIO  # for file handling
-from pdf2image import convert_from_path
+from streamlit_pdf_viewer import pdf_viewer
 
 tab1, tab2 = st.tabs([
     "Puzzle Game",
@@ -366,8 +366,7 @@ with tab1:
 with tab2:
     st.subheader("Puzzle Game Python Code")
     pdf_path = "./puzzlegamecode.pdf"
-    pages = convert_from_path(pdf_path, dpi=150)  # use 200-300 dpi for higher quality
+    with open(pdf_file_path, "rb") as f:
+        pdf_bytes = f.read()
 
-    # Show all pages (8 pages will just render 8 images)
-    for i, page in enumerate(pages, start=1):
-        st.image(page, use_container_width=True, caption=f"Page {i} of {len(pages)}")
+    pdf_viewer(pdf_bytes, height=800)  # full interactive viewer
