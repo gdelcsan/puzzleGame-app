@@ -4,6 +4,11 @@ import io, random, heapq, time
 import hashlib  #for implementing fingerprint for uploaded file
 from io import BytesIO # for file handling
 
+tab1, tab2= st.tabs([
+    "Puzzle Game",
+    "Code",
+])
+
 with tab1:
   st.audio("./songpuzzle.mp3", format="audio/mp3", autoplay=True, loop=True)
 
