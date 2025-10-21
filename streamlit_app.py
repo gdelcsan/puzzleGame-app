@@ -367,6 +367,6 @@ with tab2:
     st.subheader("Puzzle Game Python Code")
     drive_file_id = "15fVvzmqh3zSYLWv0SzJjVmca1LA4k1_3"
     st.markdown(
-        f'<iframe src="https://drive.google.com/file/d/15fVvzmqh3zSYLWv0SzJjVmca1LA4k1_3/preview" width="110%" height="800"></iframe>',
+        f'<iframe src="https://drive.google.com/file/d/15fVvzmqh3zSYLWv0SzJjVmca1LA4k1_3/preview" width="115%" height="800"></iframe>',
         unsafe_allow_html=True
     )
