@@ -366,7 +366,8 @@ with tab1:
 with tab2:
     st.subheader("Puzzle Game Python Code")
     pdf_path = "./puzzlegamecode.pdf"
-    with open(pdf_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    pages = convert_from_path(pdf_path, dpi=150)  # use 200-300 dpi for higher quality
+
+    # Show all pages (8 pages will just render 8 images)
+    for i, page in enumerate(pages, start=1):
+        st.image(page, use_container_width=True, caption=f"Page {i} of {len(pages)}")
