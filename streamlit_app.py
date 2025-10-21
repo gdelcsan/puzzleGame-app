@@ -188,22 +188,22 @@ with tab1:
 
     # Session state initialization
     if "tiles" not in st.session_state:
-      # load default image from an embedded small placeholder (a simple colored PIL created image)
-      default = Image.new("RGB",(450,450),(21, 109, 153))
-      draw = ImageDraw.Draw(default)
-      st.session_state.tiles = slice_into_tiles(default)
+        # load default image from an embedded small placeholder (a simple colored PIL created image)
+        default = Image.new("RGB",(450,450),(21, 109, 153))
+        draw = ImageDraw.Draw(default)
+        st.session_state.tiles = slice_into_tiles(default)
     if "history" not in st.session_state:
-      st.session_state.history = []
+        st.session_state.history = []
     if "auto_play" not in st.session_state:
-      st.session_state.auto_play = False
+        st.session_state.auto_play = False
     if "start_time" not in st.session_state:
-      st.session_state.start_time = None
+        st.session_state.start_time = None
 
   # Upload
   uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
     if uploaded is not None:
-      file_bytes = uploaded.getvalue()
-      upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
+        file_bytes = uploaded.getvalue()
+        upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
       if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
           img = Image.open(BytesIO(file_bytes)).convert("RGB")
           st.session_state.tiles = slice_into_tiles(img)
