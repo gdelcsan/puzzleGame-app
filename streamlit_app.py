@@ -3,7 +3,6 @@ from PIL import Image, ImageOps, ImageDraw
 import io, random, heapq, time
 import hashlib  # for implementing fingerprint for uploaded file
 from io import BytesIO  # for file handling
-from streamlit_pdf_viewer import pdf_viewer
 
 tab1, tab2 = st.tabs([
     "Puzzle Game",
@@ -365,8 +364,8 @@ with tab1:
 
 with tab2:
     st.subheader("Puzzle Game Python Code")
-    pdf_path = "./puzzlegamecode.pdf"
-    with open(pdf_file_path, "rb") as f:
-        pdf_bytes = f.read()
-
-    pdf_viewer(pdf_bytes, height=800)  # full interactive viewer
+    drive_file_id = "15fVvzmqh3zSYLWv0SzJjVmca1LA4k1_3"
+        st.markdown(
+            f'<iframe src="https://drive.google.com/file/d/15fVvzmqh3zSYLWv0SzJjVmca1LA4k1_3/preview" width="100%" height="800"></iframe>',
+        unsafe_allow_html=True
+    )
