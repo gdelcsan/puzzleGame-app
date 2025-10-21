@@ -59,7 +59,8 @@ with tab1:
         )
 
     st.markdown('<div class="cayman-header"><h1>🧩 Puzzle Your Image 🧩</h1><p>Upload an image to play!</p></div>', unsafe_allow_html=True)
-
+    st.set_page_config(page_title="Puzzle Game", page_icon="🧩")
+    
     # Puzzle logic
     GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
 
