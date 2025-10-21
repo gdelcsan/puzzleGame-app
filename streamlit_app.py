@@ -205,10 +205,10 @@ with tab1:
 
   # Upload
   uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
-      if uploaded is not None:
+    if uploaded is not None:
         file_bytes = uploaded.getvalue()
         upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
-      if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
+    if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
         img = Image.open(BytesIO(file_bytes)).convert("RGB")
             st.session_state.tiles = slice_into_tiles(img)
             st.session_state.state = GOAL
