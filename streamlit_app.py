@@ -180,28 +180,28 @@ with tab1:
             tiles[num] = tile_img
             num += 1
     # Tile style
-    blank = Image.new("RGB", (size,size), (255, 255, 255))
-    draw = ImageDraw.Draw(blank)
-    draw.rectangle([1,1,size-2,size-2], outline=(200,200,200))
-    tiles[0] = blank
-    return tiles
+      blank = Image.new("RGB", (size,size), (255, 255, 255))
+      draw = ImageDraw.Draw(blank)
+      draw.rectangle([1,1,size-2,size-2], outline=(200,200,200))
+      tiles[0] = blank
+      return tiles
 
-  # Session state initialization
-  if "tiles" not in st.session_state:
-    # load default image from an embedded small placeholder (a simple colored PIL created image)
-    default = Image.new("RGB",(450,450),(21, 109, 153))
-    draw = ImageDraw.Draw(default)
-    st.session_state.tiles = slice_into_tiles(default)
-  if "history" not in st.session_state:
-    st.session_state.history = []
-  if "auto_play" not in st.session_state:
-    st.session_state.auto_play = False
-  if "start_time" not in st.session_state:
-    st.session_state.start_time = None
+    # Session state initialization
+    if "tiles" not in st.session_state:
+      # load default image from an embedded small placeholder (a simple colored PIL created image)
+      default = Image.new("RGB",(450,450),(21, 109, 153))
+      draw = ImageDraw.Draw(default)
+      st.session_state.tiles = slice_into_tiles(default)
+    if "history" not in st.session_state:
+      st.session_state.history = []
+    if "auto_play" not in st.session_state:
+      st.session_state.auto_play = False
+    if "start_time" not in st.session_state:
+      st.session_state.start_time = None
 
   # Upload
   uploaded = st.file_uploader("", type=["png","jpg","jpeg"])
-  if uploaded is not None:
+    if uploaded is not None:
       file_bytes = uploaded.getvalue()
       upload_fingerprint = (uploaded.name, len(file_bytes), hashlib.md5(file_bytes).hexdigest()) 
       if st.session_state.last_upload_id != upload_fingerprint: #initializing only for a new file upload
