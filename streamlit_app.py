@@ -3,7 +3,7 @@ from PIL import Image, ImageOps, ImageDraw
 import io, random, heapq, time
 import hashlib  # for implementing fingerprint for uploaded file
 from io import BytesIO  # for file handling
-import base64
+from pdf2image import convert_from_path
 
 tab1, tab2 = st.tabs([
     "Puzzle Game",
